@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GuardianX | Platform Pemantauan Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        display: ["Plus Jakarta Sans", "sans-serif"],
+                    },
+                    colors: {
+                        brand: {
+                            50: "#eff6ff",
+                            100: "#dbeafe",
+                            400: "#60a5fa",
+                            500: "#3b82f6",
+                            600: "#2563eb",
+                            900: "#1e3a8a",
+                            950: "#172554",
+                        },
+                        dark: {
+                            900: "#0f1115",
+                            800: "#16191f",
+                            700: "#22262f",
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        body {
+            background-color: #0f1115;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Grid Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px),
+                linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom,
+                    black 40%,
+                    transparent 100%);
+        }
+
+        .glass-panel {
+            background: rgba(22, 25, 31, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f1115;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-brand-500/30">
+    <div class="fixed inset-0 z-[-1] bg-grid pointer-events-none"></div>
+    <div
+        class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-900/20 blur-[120px] pointer-events-none">
+    </div>
+
+    <nav class="sticky top-0 w-full z-50 glass-panel border-b-0 border-white/5 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 md:h-16 flex justify-between items-center">
+            <div class="flex items-center gap-2 md:gap-3 cursor-pointer">
+                <img src="logo.jpg" alt="Logo GuardianX" class="w-7 h-7 md:w-8 md:h-8 object-contain rounded" />
+                <span class="text-lg md:text-xl font-display font-bold tracking-tight text-white">
+                    Guardian<span class="text-brand-400">X</span>
+                </span>
+            </div>
+
+            <div class="hidden md:flex gap-6 lg:gap-8 text-sm font-medium text-slate-400">
+                <a href="#fitur" class="hover:text-white transition-colors">Fitur</a>
+                <a href="#statistik" class="hover:text-white transition-colors">Statistik</a>
+                <a href="#harga" class="hover:text-white transition-colors">Harga</a>
+                <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+            </div>
+
+            <div class="flex items-center gap-3 md:gap-4">
+                <button onclick="openModal('login')"
+                    class="text-xs md:text-sm font-medium text-slate-300 hover:text-white transition-colors">
+                    Login
+                </button>
+                <button onclick="toggleMobileMenu()"
+                    class="block md:hidden text-slate-300 hover:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu"
+            class="hidden md:hidden border-t border-white/5 bg-dark-900/95 backdrop-blur-lg px-4 py-4 space-y-3">
+            <a href="#fitur" onclick="toggleMobileMenu()"
+                class="block text-sm font-medium text-slate-400 hover:text-white transition-colors">Fitur</a>
+            <a href="#statistik" onclick="toggleMobileMenu()"
+                class="block text-sm font-medium text-slate-400 hover:text-white transition-colors">Statistik</a>
+            <a href="#harga" onclick="toggleMobileMenu()"
+                class="block text-sm font-medium text-slate-400 hover:text-white transition-colors">Harga</a>
+            <a href="#faq" onclick="toggleMobileMenu()"
+                class="block text-sm font-medium text-slate-400 hover:text-white transition-colors">FAQ</a>
+        </div>
+    </nav>
+
+    <section class="relative pt-12 pb-12 px-4 sm:px-6 md:pt-20 md:pb-16 lg:pt-24 lg:pb-20">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-6 items-center">
+            <div class="text-center lg:text-left z-10">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel border-white/10 text-[10px] md:text-[11px] font-medium text-brand-400 mb-4 md:mb-5 mx-auto lg:mx-0">
+                    <span class="relative flex h-1.5 w-1.5">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-500"></span>
+                    </span>
+                    PROTOKOL PRIVASI V6.4 AKTIF
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight mb-4 text-white">
+                    Solusi Pemantauan <br class="hidden lg:block" />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-200">
+                        Tingkat Enterprise.
+                    </span>
+                </h1>
+
+                <p class="text-slate-400 text-sm md:text-base mb-6 md:mb-7 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    Platform intelijen dan pemantauan perangkat paling mutakhir. Lacak
+                    aktivitas, komunikasi, dan lokasi dengan presisi tinggi tanpa
+                    meninggalkan jejak digital.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
+                    <a href="#fitur"
+                        class="w-full sm:w-auto bg-brand-600 hover:bg-brand-500 text-white px-8 py-2.5 rounded-lg font-semibold text-sm transition-all shadow-lg shadow-brand-600/30 text-center">
+                        Pelajari Fitur
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative w-full max-w-md mx-auto lg:max-w-none perspective-1000 mt-4 lg:mt-0">
+                <div class="glass-panel rounded-xl p-1.5 md:p-2 border border-slate-800 shadow-2xl">
+                    <div class="bg-[#0c0d10] rounded-lg overflow-hidden border border-slate-800/50">
+                        <div class="px-3 py-2 border-b border-white/5 flex items-center bg-[#13151a]">
+                            <div class="flex gap-1.5">
+                                <div class="w-2 h-2 rounded-full bg-slate-600"></div>
+                                <div class="w-2 h-2 rounded-full bg-slate-600"></div>
+                                <div class="w-2 h-2 rounded-full bg-slate-600"></div>
+                            </div>
+                            <span
+                                class="mx-auto text-[10px] font-mono text-slate-500 tracking-wider">koneksi_langsung.sh</span>
+                        </div>
+
+                        <div class="p-4 font-mono text-[11px] md:text-xs space-y-2.5">
+                            <p class="text-slate-400">Memulai otentikasi server lokal...</p>
+                            <p class="text-slate-400">
+                                Target ID: <span class="text-brand-400">GX-882-001</span>
+                            </p>
+                            <div class="flex items-center gap-2">
+                                <span class="text-green-500">✔</span>
+                                <span class="text-slate-300">Handshake aman terbentuk.</span>
+                            </div>
+                            <p class="text-slate-400 flex items-center gap-2">
+                                Mengunduh paket data
+                                <span class="inline-block w-16 md:w-20 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                    <span class="block w-full h-full bg-brand-500 shadow-[0_0_10px_#3b82f6]"></span>
+                                </span>
+                                100%
+                            </p>
+                            <p class="text-slate-300">
+                                Berhasil mengekstrak 1,402 riwayat.
+                            </p>
+
+                            <div class="mt-4 grid grid-cols-2 gap-2 md:gap-3">
+                                <div class="bg-dark-800 rounded p-2 border border-slate-800">
+                                    <div class="text-[9px] text-slate-500 mb-0.5 uppercase tracking-wide">
+                                        Status Enkripsi
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-white text-xs">Decrypted</span>
+                                        <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                                    </div>
+                                </div>
+                                <div class="bg-dark-800 rounded p-2 border border-slate-800">
+                                    <div class="text-[9px] text-slate-500 mb-0.5 uppercase tracking-wide">
+                                        Transmisi Data
+                                    </div>
+                                    <div class="text-brand-400 text-xs font-semibold">
+                                        4.2 MB/s
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="statistik" class="py-6 md:py-8 border-y border-white/5 bg-white/[0.01]">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center divide-x-0 md:divide-x divide-white/5">
+            <div class="p-2">
+                <div class="text-2xl md:text-3xl font-display font-bold text-white mb-0.5">115+</div>
+                <div class="text-[9px] md:text-[10px] font-medium uppercase tracking-widest text-slate-500">Perangkat Dipantau</div>
+            </div>
+            <div class="p-2">
+                <div class="text-2xl md:text-3xl font-display font-bold text-white mb-0.5">0.02s</div>
+                <div class="text-[9px] md:text-[10px] font-medium uppercase tracking-widest text-slate-500">Latensi Respons</div>
+            </div>
+            <div class="p-2">
+                <div class="text-2xl md:text-3xl font-display font-bold text-white mb-0.5">99.9%</div>
+                <div class="text-[9px] md:text-[10px] font-medium uppercase tracking-widest text-slate-500">Uptime Sistem</div>
+            </div>
+            <div class="p-2">
+                <div class="text-2xl md:text-3xl font-display font-bold text-white mb-0.5">256-bit</div>
+                <div class="text-[9px] md:text-[10px] font-medium uppercase tracking-widest text-slate-500">Enkripsi AES</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="fitur" class="py-12 md:py-16 px-4 sm:px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="text-center md:text-left mb-8 md:mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div class="max-w-2xl">
+                    <h2 class="text-xs font-bold text-brand-500 tracking-widest uppercase mb-1">Kemampuan Platform</h2>
+                    <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-2">Akses Tanpa Batas. <br
+                            class="hidden md:block" />Kendali Sepenuhnya.</h3>
+                    <p class="text-slate-400 text-xs md:text-sm">
+                        Rangkaian alat tingkat keamanan tinggi (Enterprise-grade) yang didesain untuk beroperasi di
+                        balik layar tanpa terdeteksi oleh target.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+                <div class="group p-5 md:p-6 rounded-xl glass-panel hover:bg-dark-800 transition-colors">
+                    <div
+                        class="w-10 h-10 bg-slate-800 text-slate-300 rounded-lg flex items-center justify-center mb-4 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="text-base font-bold text-white mb-2">Ekstraksi Komunikasi</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-4">Akses menyeluruh ke riwayat pesan teks,
+                        panggilan, dan media (foto/video) bahkan yang dihapus oleh pengguna.</p>
+                    <ul class="text-[11px] space-y-1.5 text-slate-300 font-medium">
+                        <li class="flex items-center gap-1.5"><span class="text-brand-500">✓</span> Bypass Pesan Terenkripsi</li>
+                        <li class="flex items-center gap-1.5"><span class="text-brand-500">✓</span> Pemulihan Data Terhapus</li>
+                    </ul>
+                </div>
+
+                <div class="group p-5 md:p-6 rounded-xl glass-panel hover:bg-dark-800 transition-colors">
+                    <div
+                        class="w-10 h-10 bg-slate-800 text-slate-300 rounded-lg flex items-center justify-center mb-4 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-base font-bold text-white mb-2">Pelacakan Titik Koordinat</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-4">Pemantauan lokasi langsung dengan akurasi
+                        tinggi. Terima notifikasi instan saat target masuk/keluar area (Geofencing).</p>
+                    <ul class="text-[11px] space-y-1.5 text-slate-300 font-medium">
+                        <li class="flex items-center gap-1.5"><span class="text-brand-500">✓</span> Peringatan Geofencing Otomatis</li>
+                    </ul>
+                </div>
+
+                <div class="group p-5 md:p-6 rounded-xl glass-panel hover:bg-dark-800 transition-colors">
+                    <div
+                        class="w-10 h-10 bg-slate-800 text-slate-300 rounded-lg flex items-center justify-center mb-4 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="text-base font-bold text-white mb-2">Akses Periferal Jarak Jauh</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-4">Aktivasi mikrofon atau kamera perangkat
+                        secara diam-diam untuk memantau lingkungan sekitar secara real-time.</p>
+                    <ul class="text-[11px] space-y-1.5 text-slate-300 font-medium">
+                        <li class="flex items-center gap-1.5"><span class="text-brand-500">✓</span> Streaming Latar Belakang</li>
+                        <li class="flex items-center gap-1.5"><span class="text-brand-500">✓</span> Operasi Tanpa Notifikasi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="harga" class="py-12 md:py-16 px-4 sm:px-6 bg-[#090b0e] border-t border-white/5">
+        <div class="max-w-7xl mx-auto text-center mb-10">
+            <h2 class="text-xs font-bold text-blue-500 tracking-widest uppercase mb-1">Investasi Keamanan</h2>
+            <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-2">Pilih Tingkat Akses Anda</h3>
+            <p class="text-slate-400 text-xs md:text-sm">Biaya berlangganan transparan. Tiga tingkat otorisasi untuk kebutuhan operasional Anda.</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 items-center">
+            <div
+                class="bg-[#11141a] p-5 md:p-6 rounded-2xl border border-slate-800/60 hover:border-slate-700 transition-all hover:scale-[1.02] duration-300 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-5">
+                    <div>
+                        <h4 class="text-slate-400 font-medium text-xs uppercase tracking-wider mb-1">Lisensi Standar</h4>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-xs text-slate-500">Rp</span>
+                            <span class="text-2xl md:text-3xl font-display font-bold text-white">120.000</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full bg-slate-800 text-[9px] font-bold text-slate-300">30 HARI</span>
+                </div>
+
+                <div class="space-y-3 mb-6 text-[11px] md:text-xs text-slate-300 flex-grow">
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Ekstraksi Obrolan Teks & Kontak</div>
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Akses Riwayat Panggilan Dasar</div>
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Pembaruan Log Periodik</div>
+                    <div class="flex items-center gap-2 text-slate-600"><svg class="w-3.5 h-3.5 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>Pelacakan GPS Instan</div>
+                    <div class="flex items-center gap-2 text-slate-600"><svg class="w-3.5 h-3.5 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>Kendali Perangkat Jarak Jauh</div>
+                </div>
+                <button onclick="openPaymentModal('Standar', '120.000')"
+                    class="w-full py-2.5 rounded-lg bg-[#1a202c] text-white text-xs md:text-sm font-semibold hover:bg-slate-700 transition-colors mt-auto">
+                    Pilih Standar
+                </button>
+            </div>
+
+            <div
+                class="bg-[#11141a] p-5 md:p-6 rounded-2xl border border-blue-600/50 relative shadow-2xl shadow-blue-900/20 transform lg:-translate-y-3 transition-all hover:scale-[1.03] duration-300 flex flex-col h-full z-10">
+                <div
+                    class="absolute -top-2.5 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Rekomendasi</div>
+                <div class="flex justify-between items-start mb-5">
+                    <div>
+                        <h4 class="text-blue-400 font-medium text-xs uppercase tracking-wider mb-1">Lisensi Profesional</h4>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-xs text-slate-500">Rp</span>
+                            <span class="text-2xl md:text-3xl font-display font-bold text-white">250.000</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-[9px] font-bold text-blue-400">90 HARI</span>
+                </div>
+
+                <div class="space-y-3 mb-6 text-[11px] md:text-xs text-slate-200 flex-grow">
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Semua Fitur Lisensi Standar</div>
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Pelacakan GPS Presisi & Geofence</div>
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Bypass Media Terenkripsi (Foto/Video)</div>
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Pemulihan Pesan & Data Terhapus</div>
+                    <div class="flex items-center gap-2 text-slate-600"><svg class="w-3.5 h-3.5 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>Akses Kamera & Mikrofon Latar</div>
+                </div>
+                <button onclick="openPaymentModal('Profesional', '250.000')"
+                    class="w-full py-2.5 rounded-lg bg-blue-600 text-white text-xs md:text-sm font-semibold hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/25 mt-auto">
+                    Aktifkan Akses Pro
+                </button>
+            </div>
+
+            <div
+                class="bg-[#11141a] p-5 md:p-6 rounded-2xl border border-purple-900/40 hover:border-purple-800 transition-all hover:scale-[1.02] duration-300 flex flex-col h-full relative overflow-hidden group md:col-span-2 lg:col-span-1">
+                <div class="flex justify-between items-start mb-5">
+                    <div>
+                        <h4 class="text-purple-400 font-medium text-xs uppercase tracking-wider mb-1">Lisensi Ultimate</h4>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-xs text-slate-500">Rp</span>
+                            <span class="text-2xl md:text-3xl font-display font-bold text-white">300.000</span>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full bg-purple-500/20 text-[9px] font-bold text-purple-400">180 HARI</span>
+                </div>
+
+                <div class="space-y-3 mb-6 text-[11px] md:text-xs text-slate-300 flex-grow">
+                    <div class="flex items-center gap-2 text-white font-medium"><svg
+                            class="w-3.5 h-3.5 text-purple-500 shrink-0" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Semua Fitur Lisensi Profesional</div>
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-purple-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Kendali Kamera & Mikrofon Latar</div>
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-purple-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Perekaman Panggilan Langsung</div>
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-purple-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Mode Stealth Prioritas</div>
+                    <div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 text-purple-500 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>Bantuan Eksklusif Agen 24/7</div>
+                </div>
+                <button onclick="openPaymentModal('Ultimate', '300.000')"
+                    class="w-full py-2.5 rounded-lg border border-purple-500/30 text-purple-400 text-xs md:text-sm font-semibold hover:bg-purple-500/10 transition-colors mt-auto">
+                    Akses Tingkat Dewa
+                </button>
+            </div>
+        </div>
+
+        <div id="paymentModal"
+            class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+            <div
+                class="bg-[#11141a] border border-slate-700 text-white rounded-2xl max-w-sm md:max-w-md w-full p-6 relative shadow-2xl transition-all">
+
+                <button onclick="closePaymentModal()"
+                    class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+
+                <div class="mb-5 text-center">
+                    <h2 class="text-lg font-display font-bold text-white">Detail Pembayaran</h2>
+                    <p class="text-xs text-slate-400 mt-1">
+                        Aktivasi <span id="modalPlanName" class="text-blue-400 font-bold"></span> &mdash;
+                        <span class="text-white font-bold">Rp <span id="modalPlanPrice"></span></span>
+                    </p>
+                </div>
+
+                <div class="flex p-1 bg-slate-900/60 border border-slate-800/80 rounded-xl mb-4">
+                    <button id="tab-dana"
+                        class="wallet-tab flex-1 py-1.5 text-xs font-bold rounded-lg bg-slate-800 text-white text-center transition-all cursor-default">
+                        DANA
+                    </button>
+                </div>
+
+                <div class="flex gap-4 border-b border-slate-800 pb-2 mb-4 px-1">
+                    <button onclick="switchMethod('number')" id="method-number"
+                        class="method-tab text-xs font-bold pb-1 border-b-2 border-blue-500 text-blue-400 transition-all">
+                        Nomor Rekening
+                    </button>
+                    <button onclick="switchMethod('qris')" id="method-qris"
+                        class="method-tab text-xs font-bold pb-1 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all">
+                        Scan QRIS
+                    </button>
+                </div>
+
+                <div
+                    class="p-4 bg-slate-900/40 border border-slate-800 rounded-xl min-h-[160px] flex flex-col justify-center items-center text-center mb-5">
+
+                    <div id="content-number" class="w-full flex flex-col items-center justify-center space-y-2">
+                        <div class="h-7 flex items-center justify-center mb-1">
+                            <img id="display-wallet-logo" src="logo-dana.png" alt="Logo"
+                                class="h-6 max-w-[110px] object-contain block mx-auto">
+                        </div>
+                        <p id="display-number" class="text-lg font-mono font-bold tracking-wider text-white">
+                            0895-0963-2451</p>
+                        <p id="display-holder" class="text-[11px] text-slate-400">a/n Nama Pemilik DANA</p>
+                        <button onclick="copyToClipboard()"
+                            class="inline-flex items-center gap-1 text-[10px] text-slate-400 hover:text-white pt-1 transition-colors">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7v8a2 2 0 002 2h6a2 2 0 002-2V7a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h2">
+                                </path>
+                            </svg>
+                            Salin Nomor
+                        </button>
+                    </div>
+
+                    <div id="content-qris" class="hidden w-full flex flex-col items-center space-y-2">
+                        <div class="bg-white p-2 rounded-xl inline-block shadow-lg">
+                            <img id="display-qris-img" src="" alt="QRIS Terkunci Nominal"
+                                class="w-32 h-32 object-contain block">
+                        </div>
+                        <p class="text-[10px] text-slate-400 max-w-[220px]">
+                            Scan QR Code ini. Nominal pembayaran sudah terkunci sesuai paket yang Anda pilih.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div>
+                    <button onclick="confirmPayment()"
+                        class="w-full py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-md hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+                        <span>Konfirmasi Pembayaran</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                    <p class="text-[10px] text-slate-400 text-center mt-3">
+                        Klik konfirmasi untuk mengirim bukti transfer via WhatsApp.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-12 md:py-16 px-4 sm:px-6 relative border-t border-white/5">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-xs font-bold text-brand-500 tracking-widest uppercase mb-1">Pertanyaan Umum</h2>
+                <h3 class="text-2xl md:text-3xl font-display font-bold text-white">Sering Ditanyakan (FAQ)</h3>
+            </div>
+
+            <div class="space-y-3">
+                <div class="glass-panel rounded-xl border border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(1)"
+                        class="w-full px-5 py-4 text-left flex justify-between items-center hover:bg-white/[0.02] transition-colors focus:outline-none">
+                        <span class="text-sm font-semibold text-white">Apakah aplikasi ini terdeteksi oleh target?</span>
+                        <svg id="faq-icon-1" class="w-4 h-4 text-slate-400 transition-transform duration-200"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div id="faq-ans-1"
+                        class="hidden px-5 pb-4 text-xs text-slate-400 leading-relaxed border-t border-white/[0.02] pt-3">
+                        Sama sekali tidak. GuardianX bekerja sepenuhnya di latar belakang system Android/iOS dengan
+                        menggunakan mode stealth prioritas tinggi (tergantung paket lisensi), sehingga tidak memunculkan
+                        notifikasi, icon aplikasi, ataupun beban resource memori yang mencurigakan.
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl border border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(2)"
+                        class="w-full px-5 py-4 text-left flex justify-between items-center hover:bg-white/[0.02] transition-colors focus:outline-none">
+                        <span class="text-sm font-semibold text-white">Bagaimana cara pemasangannya setelah beli?</span>
+                        <svg id="faq-icon-2" class="w-4 h-4 text-slate-400 transition-transform duration-200"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div id="faq-ans-2"
+                        class="hidden px-5 pb-4 text-xs text-slate-400 leading-relaxed border-t border-white/[0.02] pt-3">
+                        Setelah pembayaran berhasil dikonfirmasi oleh admin melalui WhatsApp, Anda akan langsung
+                        dikirimkan berkas package rahasia beserta kredensial ID Agen dan panduan instalasi super mudah
+                        yang memakan waktu kurang dari 3 menit.
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl border border-slate-800 overflow-hidden">
+                    <button onclick="toggleFaq(3)"
+                        class="w-full px-5 py-4 text-left flex justify-between items-center hover:bg-white/[0.02] transition-colors focus:outline-none">
+                        <span class="text-sm font-semibold text-white">Apakah bisa memulihkan pesan yang sudah dihapus?</span>
+                        <svg id="faq-icon-3" class="w-4 h-4 text-slate-400 transition-transform duration-200"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div id="faq-ans-3"
+                        class="hidden px-5 pb-4 text-xs text-slate-400 leading-relaxed border-t border-white/[0.02] pt-3">
+                        Bisa. Untuk Lisensi Profesional dan Ultimate, sistem intelijen kami secara otomatis melakukan
+                        mirror-backup terhadap database lokal penyimpanan pesan instan (WhatsApp, DLL), sehingga data
+                        yang sudah dihapus oleh target tetap bisa terekstrak bersih ke dasbor Anda.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimoni"
+        class="py-12 md:py-16 px-4 sm:px-6 relative border-t border-white/5 bg-gradient-to-b from-transparent to-white/[0.02]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-8 md:mb-10">
+                <h2 class="text-xs font-bold text-brand-500 tracking-widest uppercase mb-1">Kata Mereka</h2>
+                <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-2">Pengalaman Pengguna Kami</h3>
+                <p class="text-slate-400 text-xs md:text-sm max-w-xl mx-auto">
+                    Zobacz szczere opinie od ludzi, którzy sami sprawdzili, jak GuardianX ułatwia zdalne monitorowanie.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 md:gap-5">
+                <div
+                    class="p-5 md:p-6 rounded-xl glass-panel border-slate-800 hover:border-slate-700 transition-colors relative">
+                    <div class="flex gap-1 mb-3 text-brand-400">
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                    </div>
+                    <p class="text-slate-300 text-xs md:text-sm leading-relaxed mb-5 italic">
+                        "Pelacakan lokasinya akurat parah. Bisa mantau pergerakan target tanpa ketahuan sama sekali di
+                        HP mereka. Tampilan aplikasinya juga cepat dan gampang banget dipakainya."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://img.okezone.com/content/2023/09/19/33/2885873/tips-baperin-orang-random-ala-iman-wawan-1sNT5twgVy.jpg"
+                            alt="Reviewer" class="w-9 h-9 rounded-full border border-slate-700 object-cover" />
+                        <div>
+                            <div class="text-xs font-bold text-white">Arditho Yudha</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="p-5 md:p-6 rounded-xl glass-panel border-slate-800 hover:border-slate-700 transition-colors relative">
+                    <div class="flex gap-1 mb-3 text-brand-400">
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                    </div>
+                    <p class="text-slate-300 text-xs md:text-sm leading-relaxed mb-5 italic">
+                        "Fitur narik chat-nya beneran ngebantu banget. Pesan yang udah dihapus target bisa ditarik balik
+                        cuma hitungan menit. Keamanannya juga berlapis, bikin data operasi kita tetap aman."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://pbs.twimg.com/media/G0oEP0SWAAAfvQu.jpg" alt="Reviewer"
+                            class="w-9 h-9 rounded-full border border-slate-700 object-cover" />
+                        <div>
+                            <div class="text-xs font-bold text-white">NurFitriani25</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="p-5 md:p-6 rounded-xl glass-panel border-slate-800 hover:border-slate-700 transition-colors relative">
+                    <div class="flex gap-1 mb-3 text-brand-400">
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                        <svg class="w-3.5 h-3.5 text-slate-600 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
+                        </svg>
+                    </div>
+                    <p class="text-slate-300 text-xs md:text-sm leading-relaxed mb-5 italic">
+                        "Sumpah sepadan banget pakai paket Ultimate. Akses kamera tersembunyinya mulus gila dan
+                        bener-bener gak ketahuan sama sekali sama antivirus. Sangat disarankan buat operasional di
+                        lapangan."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://pbs.twimg.com/media/G0kTyCRaMAUI5PR.jpg" alt="Reviewer"
+                            class="w-9 h-9 rounded-full border border-slate-700 object-cover" />
+                        <div>
+                            <div class="text-xs font-bold text-white">Maura Khairunnisa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-6 border-t border-white/5 bg-[#0a0b0e]">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-3 text-center md:text-left">
+            <div class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z">
+                    </path>
+                </svg>
+                <span class="text-[9px] md:text-[10px] tracking-widest uppercase text-slate-500 font-medium">Koneksi Dienkripsi: AES-256 Terverifikasi</span>
+            </div>
+            <p class="text-slate-500 text-xs md:text-sm">
+                &copy; 2026 GuardianX Security. Hak Cipta Dilindungi.
+            </p>
+        </div>
+    </footer>
+
+    <div id="authModal" class="fixed inset-0 z-[200] hidden flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-dark-900/90 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+
+        <div
+            class="relative w-full max-w-sm md:max-w-md bg-dark-800 p-6 md:p-7 rounded-xl border border-slate-700 shadow-2xl transform transition-all">
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+
+            <div id="loginForm">
+                <h2 class="text-xl md:text-2xl font-display font-bold text-white mb-1">Portal Otentikasi</h2>
+                <p class="text-slate-400 text-xs md:text-sm mb-5">Silakan masukkan kredensial agen Anda.</p>
+
+                <div id="loginError"
+                    class="hidden bg-red-500/10 border border-red-500/50 text-red-500 text-[11px] md:text-xs p-2.5 rounded-md mb-3 text-center font-medium">
+                    Akses Ditolak: Email belum terdaftar atau kata sandi salah.
+                </div>
+
+                <div class="space-y-3.5">
+                    <div>
+                        <label class="block text-[10px] md:text-xs font-medium text-slate-400 mb-1">ID AGEN / EMAIL</label>
+                        <input id="loginEmail" type="text" placeholder="Masukkan ID atau Email"
+                            class="w-full bg-dark-900 border border-slate-700 rounded-md p-2.5 text-xs md:text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all" />
+                    </div>
+                    <div>
+                        <label class="block text-[10px] md:text-xs font-medium text-slate-400 mb-1">KATA SANDI</label>
+                        <input id="loginPassword" type="password" placeholder="••••••••"
+                            class="w-full bg-dark-900 border border-slate-700 rounded-md p-2.5 text-xs md:text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all" />
+                    </div>
+                    <button id="loginBtn" onclick="handleLogin()"
+                        class="w-full py-2.5 bg-white text-dark-900 text-sm font-semibold rounded-md mt-2 hover:bg-slate-200 transition-colors">Masuk ke Dasbor</button>
+                    <p class="text-[10px] text-center text-slate-500 mt-2">Belum memiliki lisensi? Hubungi admin untuk mengajukan aktivasi server.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://wa.me/6289509632451?text=Halo%20kak,%20saya%20minat%20produk/jasa%20sadap%20kk" target="_blank"
+        class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[100] group">
+        <div
+            class="flex items-center gap-2 md:gap-3 bg-[#0b0f14] border border-white/10 hover:border-green-400/60 transition-all duration-300 rounded-full pl-2 pr-4 py-1.5 md:pl-3 md:pr-5 md:py-2 shadow-2xl hover:shadow-green-500/20">
+            <div
+                class="w-10 h-10 md:w-12 md:h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition">
+                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.418-.099.824z">
+                    </path>
+                </svg>
+            </div>
+            <div class="leading-tight">
+                <div class="text-[8px] md:text-[9px] uppercase tracking-widest text-gray-400">WhatsApp Support</div>
+                <div class="text-xs md:text-sm font-semibold text-white">Chat Admin</div>
+            </div>
+        </div>
+    </a>
+
+    <script>
+        // SINKRONISASI MATRIX DATA: Paket + E-Wallet DANA + Gambar QRIS Nominal Terkunci Otomatis
+        const paymentDataMatrix = {
+            "Standar": {
+                dana: { number: "0895-0963-2451", holder: "a/n Nama Pemilik DANA", logo: "logo-dana.png", qris: "qris-dana-standar.jpg" }
+            },
+            "Profesional": {
+                dana: { number: "0895-0963-2451", holder: "a/n Nama Pemilik DANA", logo: "logo-dana.png", qris: "qris-dana-pro.jpg" }
+            },
+            "Ultimate": {
+                dana: { number: "0895-0963-2451", holder: "a/n Nama Pemilik DANA", logo: "logo-dana.png", qris: "qris-dana-ultimate.jpg" }
+            }
+        };
+
+        let currentActiveWallet = 'dana';
+        let currentActiveMethod = 'number';
+        let activeSelectedPlan = 'Standar';
+        let activeSelectedPrice = '120.000';
+
+        // Fungsi toggle navbar di device HP
+        function toggleMobileMenu() {
+            const menu = document.getElementById("mobileMenu");
+            const icon = document.getElementById("hamburger-icon");
+            if (menu.classList.contains("hidden")) {
+                menu.classList.remove("hidden");
+                icon.setAttribute("d", "M6 18L18 6M6 6l12 12"); // Berubah jadi X
+            } else {
+                menu.classList.add("hidden");
+                icon.setAttribute("d", "M4 6h16M4 12h16M4 18h16"); // Berubah jadi garis tiga
+            }
+        }
+
+        // Fungsi Akordion FAQ
+        function toggleFaq(id) {
+            const ans = document.getElementById(`faq-ans-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            if (ans.classList.contains("hidden")) {
+                ans.classList.remove("hidden");
+                icon.classList.add("rotate-180");
+            } else {
+                ans.classList.add("hidden");
+                icon.classList.remove("rotate-180");
+            }
+        }
+
+        function openModal(type) {
+            const modal = document.getElementById("authModal");
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                modal.querySelector("div:last-child").classList.add("scale-100", "opacity-100");
+                modal.querySelector("div:last-child").classList.remove("scale-95", "opacity-0");
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("authModal");
+            modal.querySelector("div:last-child").classList.remove("scale-100", "opacity-100");
+            modal.querySelector("div:last-child").classList.add("scale-95", "opacity-0");
+            setTimeout(() => {
+                modal.classList.add("hidden");
+            }, 200);
+        }
+
+        function openPaymentModal(packageName, price) {
+            activeSelectedPlan = packageName;
+            activeSelectedPrice = price;
+
+            document.getElementById("modalPlanName").innerText = packageName;
+            document.getElementById("modalPlanPrice").innerText = price;
+
+            const modal = document.getElementById("paymentModal");
+            modal.classList.remove("hidden");
+
+            // Reset ke default (DANA + Nomor HP)
+            switchWallet('dana');
+            switchMethod('number');
+
+            setTimeout(() => {
+                modal.querySelector("div:last-child").classList.add("scale-100", "opacity-100");
+                modal.querySelector("div:last-child").classList.remove("scale-95", "opacity-0");
+            }, 10);
+        }
+
+        function closePaymentModal() {
+            const modal = document.getElementById("paymentModal");
+            modal.querySelector("div:last-child").classList.remove("scale-100", "opacity-100");
+            modal.querySelector("div:last-child").classList.add("scale-95", "opacity-0");
+            setTimeout(() => {
+                modal.classList.add("hidden");
+            }, 200);
+        }
+
+        function switchWallet(walletKey) {
+            currentActiveWallet = walletKey;
+            const selection = paymentDataMatrix[activeSelectedPlan][walletKey];
+
+            // Ganti logo, angka nomor, dan nama pemilik akun secara dinamis
+            document.getElementById('display-wallet-logo').src = selection.logo;
+            document.getElementById('display-number').innerText = selection.number;
+            document.getElementById('display-holder').innerText = selection.holder;
+
+            // Ganti gambar QRIS unik mengikuti varian kombinasi paket aktif
+            document.getElementById('display-qris-img').src = selection.qris;
+        }
+
+        function switchMethod(methodKey) {
+            currentActiveMethod = methodKey;
+
+            // Ganti status active visual sub-tab jalur transfer
+            document.querySelectorAll('.method-tab').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-400');
+                btn.classList.add('border-transparent', 'text-slate-400');
+            });
+            const currentMethodTab = document.getElementById(`method-${methodKey}`);
+            currentMethodTab.classList.remove('border-transparent', 'text-slate-400');
+            currentMethodTab.classList.add('border-blue-500', 'text-blue-400');
+
+            // Toggle sembunyikan/tampilkan blok kontainer DOM
+            if (methodKey === 'number') {
+                document.getElementById('content-number').classList.remove('hidden');
+                document.getElementById('content-qris').classList.add('hidden');
+            } else {
+                document.getElementById('content-number').classList.add('hidden');
+                document.getElementById('content-qris').classList.remove('hidden');
+            }
+        }
+
+        function confirmPayment() {
+            const waNumber = "6289509632451";
+            const walletUpper = currentActiveWallet.toUpperCase();
+            const methodText = currentActiveMethod === 'number' ? 'Transfer Nomor' : 'Scan QRIS';
+
+            const message = `Halo Admin GuardianX, saya ingin mengonfirmasi pembayaran untuk:%0A%0A*Paket:* Lisensi ${activeSelectedPlan}%0A*Total:* Rp ${activeSelectedPrice}%0A*Metode:* ${walletUpper} (${methodText})%0A%0ABerikut saya lampirkan bukti transfernya.`;
+
+            window.open(`https://wa.me/${waNumber}?text=${message}`, "_blank");
+            closePaymentModal();
+        }
+
+        function copyToClipboard() {
+            const selection = paymentDataMatrix[activeSelectedPlan][currentActiveWallet];
+            const cleanNum = selection.number.replace(/-/g, '');
+
+            navigator.clipboard.writeText(cleanNum).then(() => {
+                alert(`Nomor ${currentActiveWallet.toUpperCase()} (${cleanNum}) berhasil disalin!`);
+            });
+        }
+
+        function handleLogin() {
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
+            const errorBox = document.getElementById("loginError");
+            const loginBtn = document.getElementById("loginBtn");
+
+            if (email === "" || password === "") {
+                errorBox.innerText = "Harap isi ID/Email dan Kata Sandi terlebih dahulu.";
+                errorBox.classList.remove("hidden");
+                return;
+            }
+
+            errorBox.classList.add("hidden");
+
+            const originalText = loginBtn.innerText;
+            loginBtn.innerText = "Memverifikasi...";
+            loginBtn.disabled = true;
+            loginBtn.classList.add("opacity-75", "cursor-not-allowed");
+
+            setTimeout(() => {
+                errorBox.innerText = "Akses Ditolak: Email belum terdaftar atau kata sandi salah.";
+                errorBox.classList.remove("hidden");
+
+                loginBtn.innerText = originalText;
+                loginBtn.disabled = false;
+                loginBtn.classList.remove("opacity-75", "cursor-not-allowed");
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
